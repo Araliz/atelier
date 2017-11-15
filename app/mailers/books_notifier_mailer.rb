@@ -5,4 +5,11 @@ class BooksNotifierMailer < ApplicationMailer
 
     mail(to: reservation.user.email, subject: "Potwierdzenie")
   end
+
+  def book_return_remind
+    @reservation = reservation
+
+    mail(to: reservation.user.email, subject: "Upływa termin zwrotu książki #{reservation.book.title}")
+  end
+
 end

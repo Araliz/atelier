@@ -9,6 +9,7 @@ class ReservationHandler
 
     if book.available_reservation.present?
       book.available_reservation.update_attributes(status: 'TAKEN')
+      ::BookReservationExpireWorker.perform_at(available_reservation.expires_at-1.day, available_reservation.book_id)
     else
       book.reservations.create(user: user, status: 'TAKEN')
     end
