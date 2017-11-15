@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20171102211338) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "authors", force: :cascade do |t|
     t.string "firstname"
     t.string "lastname"
@@ -21,8 +24,8 @@ ActiveRecord::Schema.define(version: 20171102211338) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "book_id"
-    t.integer "user_id"
+    t.bigint "book_id"
+    t.bigint "user_id"
     t.datetime "expires_at"
     t.index ["book_id"], name: "index_book_reservations_on_book_id"
     t.index ["user_id"], name: "index_book_reservations_on_user_id"
@@ -34,14 +37,14 @@ ActiveRecord::Schema.define(version: 20171102211338) do
     t.integer "year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "author_id"
-    t.integer "publisher_id"
+    t.bigint "author_id"
+    t.bigint "publisher_id"
     t.integer "page_count"
     t.string "published_date"
     t.string "language"
     t.string "preview_link"
     t.string "info_link"
-    t.integer "category_id"
+    t.bigint "category_id"
     t.index ["author_id"], name: "index_books_on_author_id"
     t.index ["category_id"], name: "index_books_on_category_id"
     t.index ["publisher_id"], name: "index_books_on_publisher_id"

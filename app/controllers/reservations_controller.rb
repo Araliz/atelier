@@ -2,22 +2,22 @@ class ReservationsController < ApplicationController
   before_action :load_user, only: [:users_reservations]
 
   def reserve
-    book.reserve(current_user) if book.can_reserve?(current_user)
+    ::ReservationHandler.new(current_user).reserve(book)
     redirect_to(book_path(book.id))
   end
 
   def take
-    book.take(current_user) if book.can_take?(current_user)
+    ::ReservationHandler.new(current_user).take(book)
     redirect_to(book_path(book.id))
   end
 
   def give_back
-    book.give_back if book.can_give_back?(current_user)
+    ::ReservationHandler.new(current_user).give_back(book)
     redirect_to(book_path(book.id))
   end
 
   def cancel
-    book.cancel_reservation(current_user)
+    ::ReservationHandler.new(current_user).cancel_reservation(book)
     redirect_to(book_path(book.id))
   end
 
