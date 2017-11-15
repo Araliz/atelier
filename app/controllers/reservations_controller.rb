@@ -8,6 +8,7 @@ class ReservationsController < ApplicationController
 
   def take
     ::ReservationHandler.new(current_user).take(book)
+    BooksNotifierMailer.confirmation(Reservation.where(user: current_user, book: @book).last).deliver_now
     redirect_to(book_path(book.id))
   end
 
