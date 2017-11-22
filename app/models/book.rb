@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
   has_many :reservations
   has_many :borrowers, through: :reservations, source: :user
   belongs_to :category
@@ -44,7 +45,7 @@ class Book < ApplicationRecord
   def next_in_queue
     reservations.where(status: 'RESERVED').order(created_at: :asc).first
   end
-  
+
   def pending_reservations
     reservations.find_by(status: 'PENDING')
   end
